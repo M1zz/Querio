@@ -68,18 +68,17 @@ struct AddBookView: View {
 
             Divider()
 
-            ScrollView {
-                VStack(spacing: 0) {
-                    switch currentStep {
-                    case 0: step0BookSearch
-                    case 1: step1GoalSetting
-                    case 2: step2Questions
-                    case 3: step3Hypotheses
-                    default: EmptyView()
-                    }
+            Group {
+                switch currentStep {
+                case 0: step0BookSearch
+                case 1: step1GoalSetting
+                case 2: step2Questions
+                case 3: step3Hypotheses
+                default: EmptyView()
                 }
-                .padding(28)
             }
+            .padding(.horizontal, 24).padding(.vertical, 20)
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
 
             Divider()
 
@@ -99,9 +98,9 @@ struct AddBookView: View {
                         .disabled(!canProceedStep3)
                 }
             }
-            .padding(.horizontal, 24).padding(.vertical, 16)
+            .padding(.horizontal, 24).padding(.vertical, 14)
         }
-        .frame(width: 560, height: 640)
+        .frame(width: 560, height: 620)
         .background(Color(NSColor.windowBackgroundColor))
     }
 
@@ -277,85 +276,76 @@ struct AddBookView: View {
 
     // MARK: Step 1 - 목표 설정
     var step1GoalSetting: some View {
-        VStack(alignment: .leading, spacing: 24) {
-            VStack(alignment: .leading, spacing: 6) {
+        VStack(alignment: .leading, spacing: 14) {
+            VStack(alignment: .leading, spacing: 4) {
                 Text("🎯 목표 설정")
-                    .font(.system(size: 20, weight: .bold))
-                Text("지금 내 삶의 현상을 파악하고\n이 책으로 달성하고 싶은 목표를 정하세요")
-                    .font(.system(size: 13)).foregroundColor(.secondary)
+                    .font(.system(size: 18, weight: .bold))
+                Text("지금 내 삶의 현상을 파악하고 이 책으로 달성하고 싶은 목표를 정하세요")
+                    .font(.system(size: 12)).foregroundColor(.secondary)
             }
 
-            VStack(alignment: .leading, spacing: 8) {
+            VStack(alignment: .leading, spacing: 6) {
                 HStack {
-                    Text("🔍 내 삶의 현상").font(.system(size: 14, weight: .semibold))
+                    Text("🔍 내 삶의 현상").font(.system(size: 13, weight: .semibold))
                     Spacer()
-                    Text("\(phenomenon.count)자").font(.system(size: 11))
-                        .foregroundColor(phenomenon.count >= 10 ? .green : .secondary)
-                }
-                Text("이 책을 집어든 이유. 요즘 불편하거나 해결되지 않는 것을 써보세요")
-                    .font(.system(size: 12)).foregroundColor(.secondary)
-
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(spacing: 8) {
-                        ForEach(["팀원들이 내 말을 안 따른다", "매일 할 일을 못 끝낸다", "아침마다 의욕이 없다"], id: \.self) { hint in
+                    HStack(spacing: 6) {
+                        ForEach(["할 일 못 끝냄", "의욕 없음", "관계 문제"], id: \.self) { hint in
                             Button(hint) { phenomenon = hint }
-                                .buttonStyle(.plain).font(.system(size: 11))
-                                .padding(.horizontal, 10).padding(.vertical, 5)
+                                .buttonStyle(.plain).font(.system(size: 10))
+                                .padding(.horizontal, 8).padding(.vertical, 3)
                                 .background(Color.accentColor.opacity(0.08))
-                                .foregroundColor(.accentColor).cornerRadius(20)
+                                .foregroundColor(.accentColor).cornerRadius(12)
                         }
                     }
+                    Text("\(phenomenon.count)자").font(.system(size: 10))
+                        .foregroundColor(phenomenon.count >= 10 ? .green : .secondary)
                 }
-
                 ZStack(alignment: .topLeading) {
                     if phenomenon.isEmpty {
                         Text("요즘 내 삶에서 이상하거나 불편한 것...")
                             .font(.system(size: 13)).foregroundColor(.secondary.opacity(0.6))
-                            .padding(.horizontal, 12).padding(.vertical, 10)
+                            .padding(.horizontal, 10).padding(.vertical, 8)
                     }
                     TextEditor(text: $phenomenon)
-                        .font(.system(size: 13)).frame(minHeight: 90)
+                        .font(.system(size: 13)).frame(height: 80)
                         .scrollContentBackground(.hidden)
-                        .padding(.horizontal, 8).padding(.vertical, 6)
+                        .padding(.horizontal, 6).padding(.vertical, 4)
                 }
                 .background(Color(NSColor.controlBackgroundColor))
-                .cornerRadius(10)
-                .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.secondary.opacity(0.2)))
+                .cornerRadius(8)
+                .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.secondary.opacity(0.2)))
             }
 
-            Divider().opacity(0.5)
-
-            VStack(alignment: .leading, spacing: 8) {
+            VStack(alignment: .leading, spacing: 6) {
                 HStack {
-                    Text("🎯 목표").font(.system(size: 14, weight: .semibold))
+                    Text("🎯 목표").font(.system(size: 13, weight: .semibold))
                     Spacer()
-                    Text("\(goal.count)자").font(.system(size: 11))
+                    Text("\(goal.count)자").font(.system(size: 10))
                         .foregroundColor(goal.count >= 5 ? .green : .secondary)
                 }
                 Text("이 책을 다 활용했을 때 어떤 상태가 되어 있고 싶나요?")
-                    .font(.system(size: 12)).foregroundColor(.secondary)
-
+                    .font(.system(size: 11)).foregroundColor(.secondary)
                 ZStack(alignment: .topLeading) {
                     if goal.isEmpty {
-                        Text("\"[상황]에서 [행동]할 수 있게 되고 싶다\" 형식으로 써보세요")
+                        Text("\"[상황]에서 [행동]할 수 있게 되고 싶다\"")
                             .font(.system(size: 13)).foregroundColor(.secondary.opacity(0.6))
-                            .padding(.horizontal, 12).padding(.vertical, 10)
+                            .padding(.horizontal, 10).padding(.vertical, 8)
                     }
                     TextEditor(text: $goal)
-                        .font(.system(size: 13)).frame(minHeight: 80)
+                        .font(.system(size: 13)).frame(height: 70)
                         .scrollContentBackground(.hidden)
-                        .padding(.horizontal, 8).padding(.vertical, 6)
+                        .padding(.horizontal, 6).padding(.vertical, 4)
                 }
                 .background(Color(NSColor.controlBackgroundColor))
-                .cornerRadius(10)
-                .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.secondary.opacity(0.2)))
+                .cornerRadius(8)
+                .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.secondary.opacity(0.2)))
             }
 
             if phenomenon.count >= 10 && goal.count >= 5 {
-                HStack(spacing: 8) {
-                    Image(systemName: "checkmark.circle.fill").foregroundColor(.green)
+                HStack(spacing: 6) {
+                    Image(systemName: "checkmark.circle.fill").foregroundColor(.green).font(.system(size: 12))
                     Text("좋아요! 목표가 명확할수록 필요한 부분을 정확히 찾을 수 있어요")
-                        .font(.system(size: 12)).foregroundColor(.secondary)
+                        .font(.system(size: 11)).foregroundColor(.secondary)
                 }
             }
         }
@@ -363,87 +353,100 @@ struct AddBookView: View {
 
     // MARK: Step 2 - 질문들
     var step2Questions: some View {
-        VStack(alignment: .leading, spacing: 20) {
-            VStack(alignment: .leading, spacing: 6) {
+        VStack(alignment: .leading, spacing: 14) {
+            VStack(alignment: .leading, spacing: 4) {
                 Text("❓ 귀추적 질문들")
-                    .font(.system(size: 20, weight: .bold))
-                Text("현상과 목표에서 출발해 탐색할 질문들을 만드세요\n질문이 많을수록 다양한 각도로 책을 파고들 수 있어요")
-                    .font(.system(size: 13)).foregroundColor(.secondary)
+                    .font(.system(size: 18, weight: .bold))
+                Text("현상과 목표에서 출발해 탐색할 질문들을 만드세요")
+                    .font(.system(size: 12)).foregroundColor(.secondary)
             }
 
-            VStack(alignment: .leading, spacing: 6) {
-                HStack(alignment: .top, spacing: 8) {
-                    Image(systemName: "quote.bubble.fill").foregroundColor(.accentColor.opacity(0.7))
-                    Text(phenomenon).font(.system(size: 12)).foregroundColor(.secondary).italic()
+            // 현상 & 목표 recap (한 줄 요약)
+            HStack(spacing: 12) {
+                HStack(spacing: 6) {
+                    Image(systemName: "quote.bubble.fill").font(.system(size: 11)).foregroundColor(.accentColor.opacity(0.7))
+                    Text(phenomenon).font(.system(size: 11)).foregroundColor(.secondary).italic().lineLimit(1)
                 }
                 if !goal.isEmpty {
-                    HStack(alignment: .top, spacing: 8) {
-                        Image(systemName: "scope").foregroundColor(.green.opacity(0.8))
-                        Text("목표: \(goal)").font(.system(size: 12)).foregroundColor(.green.opacity(0.8))
+                    HStack(spacing: 6) {
+                        Image(systemName: "scope").font(.system(size: 11)).foregroundColor(.green.opacity(0.8))
+                        Text(goal).font(.system(size: 11)).foregroundColor(.green.opacity(0.8)).lineLimit(1)
                     }
                 }
             }
-            .padding(12).background(Color.accentColor.opacity(0.05)).cornerRadius(8)
+            .padding(10).background(Color.accentColor.opacity(0.05)).cornerRadius(8)
 
+            // 추천 질문 (스크롤 영역)
             if !suggestedQuestions.isEmpty {
-                VStack(alignment: .leading, spacing: 10) {
-                    Text("✨ 추천 질문 (탭하여 추가/해제)")
-                        .font(.system(size: 12, weight: .semibold)).foregroundColor(.secondary)
-
-                    ForEach(suggestedQuestions, id: \.self) { q in
-                        let isAdded = abductiveQuestions.contains(q)
-                        Button(action: {
-                            if isAdded { abductiveQuestions.removeAll { $0 == q } }
-                            else { abductiveQuestions.append(q) }
-                        }) {
-                            HStack {
-                                Text(q).font(.system(size: 13)).foregroundColor(.primary).multilineTextAlignment(.leading)
-                                Spacer()
-                                Image(systemName: isAdded ? "checkmark.circle.fill" : "plus.circle")
-                                    .foregroundColor(isAdded ? .accentColor : .secondary)
-                            }
-                            .padding(12)
-                            .background(isAdded ? Color.accentColor.opacity(0.1) : Color(NSColor.controlBackgroundColor))
-                            .cornerRadius(8)
-                            .overlay(RoundedRectangle(cornerRadius: 8).stroke(isAdded ? Color.accentColor : Color.clear, lineWidth: 1.5))
-                        }
-                        .buttonStyle(.plain)
-                    }
-                }
-            }
-
-            if !abductiveQuestions.isEmpty {
                 VStack(alignment: .leading, spacing: 8) {
-                    Text("추가된 질문 (\(abductiveQuestions.count)개)")
-                        .font(.system(size: 12, weight: .semibold)).foregroundColor(.secondary)
-
-                    ForEach(abductiveQuestions.indices, id: \.self) { i in
-                        HStack(spacing: 10) {
-                            Text("\(i + 1)")
-                                .font(.system(size: 11, weight: .bold)).foregroundColor(.accentColor)
-                                .frame(width: 20, height: 20)
-                                .background(Color.accentColor.opacity(0.1)).clipShape(Circle())
-                            Text(abductiveQuestions[i]).font(.system(size: 13))
-                            Spacer()
-                            Button(action: { abductiveQuestions.remove(at: i) }) {
-                                Image(systemName: "xmark.circle.fill").foregroundColor(.secondary.opacity(0.5))
-                            }.buttonStyle(.plain)
+                    Text("✨ 추천 질문 (탭하여 추가/해제)")
+                        .font(.system(size: 11, weight: .semibold)).foregroundColor(.secondary)
+                    ScrollView {
+                        VStack(spacing: 6) {
+                            ForEach(suggestedQuestions, id: \.self) { q in
+                                let isAdded = abductiveQuestions.contains(q)
+                                Button(action: {
+                                    if isAdded { abductiveQuestions.removeAll { $0 == q } }
+                                    else { abductiveQuestions.append(q) }
+                                }) {
+                                    HStack {
+                                        Text(q).font(.system(size: 12)).foregroundColor(.primary).multilineTextAlignment(.leading)
+                                        Spacer()
+                                        Image(systemName: isAdded ? "checkmark.circle.fill" : "plus.circle")
+                                            .foregroundColor(isAdded ? .accentColor : .secondary)
+                                    }
+                                    .padding(.horizontal, 10).padding(.vertical, 8)
+                                    .background(isAdded ? Color.accentColor.opacity(0.1) : Color(NSColor.controlBackgroundColor))
+                                    .cornerRadius(7)
+                                    .overlay(RoundedRectangle(cornerRadius: 7).stroke(isAdded ? Color.accentColor : Color.clear, lineWidth: 1.5))
+                                }
+                                .buttonStyle(.plain)
+                            }
                         }
-                        .padding(10)
-                        .background(Color(NSColor.controlBackgroundColor)).cornerRadius(8)
                     }
+                    .frame(maxHeight: 150)
                 }
             }
 
+            // 추가된 질문 목록
+            if !abductiveQuestions.isEmpty {
+                VStack(alignment: .leading, spacing: 6) {
+                    Text("추가된 질문 (\(abductiveQuestions.count)개)")
+                        .font(.system(size: 11, weight: .semibold)).foregroundColor(.secondary)
+                    ScrollView {
+                        VStack(spacing: 4) {
+                            ForEach(abductiveQuestions.indices, id: \.self) { i in
+                                HStack(spacing: 8) {
+                                    Text("\(i + 1)")
+                                        .font(.system(size: 10, weight: .bold)).foregroundColor(.accentColor)
+                                        .frame(width: 18, height: 18)
+                                        .background(Color.accentColor.opacity(0.1)).clipShape(Circle())
+                                    Text(abductiveQuestions[i]).font(.system(size: 12)).lineLimit(2)
+                                    Spacer()
+                                    Button(action: { abductiveQuestions.remove(at: i) }) {
+                                        Image(systemName: "xmark.circle.fill").font(.system(size: 13)).foregroundColor(.secondary.opacity(0.5))
+                                    }.buttonStyle(.plain)
+                                }
+                                .padding(.horizontal, 8).padding(.vertical, 6)
+                                .background(Color(NSColor.controlBackgroundColor)).cornerRadius(7)
+                            }
+                        }
+                    }
+                    .frame(maxHeight: 90)
+                }
+            }
+
+            // 직접 입력 (TextField - 한 줄)
             VStack(alignment: .leading, spacing: 6) {
                 Text(abductiveQuestions.isEmpty ? "질문 입력 *" : "질문 추가")
                     .font(.system(size: 12, weight: .medium)).foregroundColor(.secondary)
-                HStack(alignment: .bottom, spacing: 8) {
-                    TextEditor(text: $currentQuestion)
-                        .font(.system(size: 13)).frame(minHeight: 60)
-                        .scrollContentBackground(.hidden).padding(8)
+                HStack(spacing: 8) {
+                    TextField("질문을 입력하고 + 버튼을 누르세요", text: $currentQuestion)
+                        .textFieldStyle(.plain).font(.system(size: 13))
+                        .padding(.horizontal, 10).padding(.vertical, 8)
                         .background(Color(NSColor.controlBackgroundColor)).cornerRadius(8)
                         .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.secondary.opacity(0.2)))
+                        .onSubmit { addCurrentQuestion() }
                     Button(action: addCurrentQuestion) {
                         Image(systemName: "plus.circle.fill").font(.system(size: 22))
                             .foregroundColor(currentQuestion.trimmingCharacters(in: .whitespaces).isEmpty ? .secondary : .accentColor)
@@ -464,77 +467,73 @@ struct AddBookView: View {
 
     // MARK: Step 3 - 가설들
     var step3Hypotheses: some View {
-        VStack(alignment: .leading, spacing: 20) {
-            VStack(alignment: .leading, spacing: 6) {
+        VStack(alignment: .leading, spacing: 12) {
+            VStack(alignment: .leading, spacing: 4) {
                 Text("💡 나의 가설들")
-                    .font(.system(size: 20, weight: .bold))
-                Text("책을 읽기 **전에** 내 답을 먼저 적어보세요\n가설이 많을수록 증거 추적이 더 날카로워져요")
-                    .font(.system(size: 13)).foregroundColor(.secondary)
+                    .font(.system(size: 18, weight: .bold))
+                Text("책을 읽기 전에 내 답을 먼저 적어보세요. 틀려도 괜찮아요!")
+                    .font(.system(size: 12)).foregroundColor(.secondary)
             }
 
             if !abductiveQuestions.isEmpty {
-                VStack(alignment: .leading, spacing: 6) {
-                    Text("탐색할 질문들")
-                        .font(.system(size: 11, weight: .semibold)).foregroundColor(.secondary)
-                    ForEach(abductiveQuestions.prefix(3), id: \.self) { q in
-                        HStack(alignment: .top, spacing: 8) {
-                            Image(systemName: "questionmark.circle.fill")
-                                .font(.system(size: 11)).foregroundColor(.orange.opacity(0.8))
-                            Text(q).font(.system(size: 12)).foregroundColor(.secondary).italic()
-                        }
-                    }
-                    if abductiveQuestions.count > 3 {
-                        Text("외 \(abductiveQuestions.count - 3)개 더...")
-                            .font(.system(size: 11)).foregroundColor(.secondary)
+                HStack(spacing: 6) {
+                    Image(systemName: "questionmark.circle.fill")
+                        .font(.system(size: 11)).foregroundColor(.orange.opacity(0.8))
+                    Text(abductiveQuestions.prefix(2).joined(separator: " • "))
+                        .font(.system(size: 11)).foregroundColor(.secondary).italic().lineLimit(1)
+                    if abductiveQuestions.count > 2 {
+                        Text("+\(abductiveQuestions.count - 2)").font(.system(size: 10)).foregroundColor(.secondary)
                     }
                 }
-                .padding(12).background(Color.orange.opacity(0.05)).cornerRadius(8)
+                .padding(.horizontal, 10).padding(.vertical, 6)
+                .background(Color.orange.opacity(0.05)).cornerRadius(8)
             }
 
             if !hypotheses.isEmpty {
-                VStack(alignment: .leading, spacing: 8) {
+                VStack(alignment: .leading, spacing: 6) {
                     Text("추가된 가설 (\(hypotheses.count)개)")
-                        .font(.system(size: 12, weight: .semibold)).foregroundColor(.secondary)
-
-                    ForEach(hypotheses.indices, id: \.self) { i in
-                        HStack(spacing: 10) {
-                            Text("\(i + 1)")
-                                .font(.system(size: 11, weight: .bold)).foregroundColor(.purple)
-                                .frame(width: 20, height: 20)
-                                .background(Color.purple.opacity(0.1)).clipShape(Circle())
-                            Text(hypotheses[i]).font(.system(size: 13))
-                            Spacer()
-                            Button(action: { hypotheses.remove(at: i) }) {
-                                Image(systemName: "xmark.circle.fill").foregroundColor(.secondary.opacity(0.5))
-                            }.buttonStyle(.plain)
+                        .font(.system(size: 11, weight: .semibold)).foregroundColor(.secondary)
+                    ScrollView {
+                        VStack(spacing: 4) {
+                            ForEach(hypotheses.indices, id: \.self) { i in
+                                HStack(spacing: 8) {
+                                    Text("\(i + 1)")
+                                        .font(.system(size: 10, weight: .bold)).foregroundColor(.purple)
+                                        .frame(width: 18, height: 18)
+                                        .background(Color.purple.opacity(0.1)).clipShape(Circle())
+                                    Text(hypotheses[i]).font(.system(size: 12)).lineLimit(2)
+                                    Spacer()
+                                    Button(action: { hypotheses.remove(at: i) }) {
+                                        Image(systemName: "xmark.circle.fill").font(.system(size: 13)).foregroundColor(.secondary.opacity(0.5))
+                                    }.buttonStyle(.plain)
+                                }
+                                .padding(.horizontal, 8).padding(.vertical, 6)
+                                .background(Color(NSColor.controlBackgroundColor)).cornerRadius(7)
+                            }
                         }
-                        .padding(10)
-                        .background(Color(NSColor.controlBackgroundColor)).cornerRadius(8)
                     }
+                    .frame(maxHeight: 90)
                 }
             }
 
             VStack(alignment: .leading, spacing: 6) {
-                HStack {
-                    Text(hypotheses.isEmpty ? "가설 입력 *" : "가설 추가")
-                        .font(.system(size: 13, weight: .medium))
-                    Text("(틀려도 괜찮아요)").font(.system(size: 11)).foregroundColor(.secondary)
-                }
-                HStack(alignment: .bottom, spacing: 8) {
+                Text(hypotheses.isEmpty ? "가설 입력 *" : "가설 추가")
+                    .font(.system(size: 12, weight: .medium)).foregroundColor(.secondary)
+                HStack(alignment: .top, spacing: 8) {
                     ZStack(alignment: .topLeading) {
                         if currentHypothesis.isEmpty {
                             Text("\"아마도... 왜냐하면...\" 형식으로 써보세요")
                                 .font(.system(size: 13)).foregroundColor(.secondary.opacity(0.6))
-                                .padding(.horizontal, 12).padding(.vertical, 10)
+                                .padding(.horizontal, 10).padding(.vertical, 8)
                         }
                         TextEditor(text: $currentHypothesis)
-                            .font(.system(size: 13)).frame(minHeight: 80)
+                            .font(.system(size: 13)).frame(height: 70)
                             .scrollContentBackground(.hidden)
-                            .padding(.horizontal, 8).padding(.vertical, 6)
+                            .padding(.horizontal, 6).padding(.vertical, 4)
                     }
                     .background(Color(NSColor.controlBackgroundColor))
-                    .cornerRadius(10)
-                    .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.secondary.opacity(0.2)))
+                    .cornerRadius(8)
+                    .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.secondary.opacity(0.2)))
 
                     Button(action: addCurrentHypothesis) {
                         Image(systemName: "plus.circle.fill").font(.system(size: 22))
@@ -544,32 +543,14 @@ struct AddBookView: View {
                     .disabled(currentHypothesis.trimmingCharacters(in: .whitespaces).isEmpty)
                 }
 
-                HStack(spacing: 8) {
+                HStack(spacing: 6) {
                     ForEach(["아마도 나는...", "내 생각엔...", "이 책이..."], id: \.self) { starter in
                         Button(starter) {
                             if currentHypothesis.isEmpty { currentHypothesis = starter + " " }
                         }
                         .buttonStyle(.plain).font(.system(size: 11))
-                        .padding(.horizontal, 10).padding(.vertical, 5)
+                        .padding(.horizontal, 8).padding(.vertical, 4)
                         .background(Color(NSColor.controlBackgroundColor)).cornerRadius(20)
-                    }
-                }
-            }
-
-            if !hypotheses.isEmpty {
-                VStack(alignment: .leading, spacing: 10) {
-                    Divider()
-                    Text("독서 여정").font(.system(size: 12, weight: .semibold)).foregroundColor(.secondary)
-                    HStack(spacing: 0) {
-                        JourneyStep(icon: "🔍", label: "현상", color: .blue)
-                        Arrow()
-                        JourneyStep(icon: "🎯", label: "목표", color: .green)
-                        Arrow()
-                        JourneyStep(icon: "❓", label: "질문들", color: .orange)
-                        Arrow()
-                        JourneyStep(icon: "💡", label: "가설들", color: .purple)
-                        Arrow()
-                        JourneyStep(icon: "📖", label: "독서", color: .accentColor)
                     }
                 }
             }
