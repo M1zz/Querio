@@ -30,7 +30,7 @@ struct ContentView: View {
                             .font(.system(size: 22, weight: .bold))
                             .foregroundColor(.primary)
                         Text("Read Less, Absorb More")
-                            .font(.system(size: 10, weight: .medium))
+                            .font(.system(size: 13, weight: .medium))
                             .foregroundColor(.secondary)
                     }
                     Spacer()
@@ -128,7 +128,7 @@ struct FilterChip: View {
     var body: some View {
         Button(action: action) {
             Text(label)
-                .font(.system(size: 11, weight: .medium))
+                .font(.system(size: 13, weight: .medium))
                 .padding(.horizontal, 10)
                 .padding(.vertical, 5)
                 .background(isSelected ? Color.accentColor : Color(NSColor.controlBackgroundColor))
@@ -170,15 +170,15 @@ struct BookRow: View {
                     .font(.system(size: 13, weight: .medium))
                     .lineLimit(1)
                 Text(book.author)
-                    .font(.system(size: 11))
+                    .font(.system(size: 13))
                     .foregroundColor(.secondary)
                     .lineLimit(1)
                 
                 HStack(spacing: 4) {
                     Image(systemName: book.status.icon)
-                        .font(.system(size: 9))
+                        .font(.system(size: 13))
                     Text(book.status.rawValue)
-                        .font(.system(size: 10))
+                        .font(.system(size: 13))
                 }
                 .foregroundColor(.secondary)
             }

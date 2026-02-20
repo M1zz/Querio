@@ -197,11 +197,11 @@ struct AddBookView: View {
                         Image(systemName: "checkmark.circle.fill").foregroundColor(.green)
                         VStack(alignment: .leading, spacing: 2) {
                             Text(selected.title).font(.system(size: 13, weight: .medium))
-                            Text(selected.authorString).font(.system(size: 12)).foregroundColor(.secondary)
+                            Text(selected.authorString).font(.system(size: 13)).foregroundColor(.secondary)
                         }
                         Spacer()
                         Button("변경") { selectedKakaoBook = nil }
-                            .buttonStyle(.plain).font(.system(size: 11)).foregroundColor(.secondary)
+                            .buttonStyle(.plain).font(.system(size: 13)).foregroundColor(.secondary)
                     }
                     .padding(12).background(Color.green.opacity(0.08)).cornerRadius(10)
                 }
@@ -238,7 +238,7 @@ struct AddBookView: View {
                 Text("🎯 목표 설정")
                     .font(.system(size: 18, weight: .bold))
                 Text("지금 내 삶의 현상을 파악하고 이 책으로 달성하고 싶은 목표를 정하세요")
-                    .font(.system(size: 12)).foregroundColor(.secondary)
+                    .font(.system(size: 13)).foregroundColor(.secondary)
             }
 
             VStack(alignment: .leading, spacing: 6) {
@@ -248,13 +248,13 @@ struct AddBookView: View {
                     HStack(spacing: 6) {
                         ForEach(["할 일 못 끝냄", "의욕 없음", "관계 문제"], id: \.self) { hint in
                             Button(hint) { phenomenon = hint }
-                                .buttonStyle(.plain).font(.system(size: 10))
+                                .buttonStyle(.plain).font(.system(size: 13))
                                 .padding(.horizontal, 8).padding(.vertical, 3)
                                 .background(Color.accentColor.opacity(0.08))
                                 .foregroundColor(.accentColor).cornerRadius(12)
                         }
                     }
-                    Text("\(phenomenon.count)자").font(.system(size: 10))
+                    Text("\(phenomenon.count)자").font(.system(size: 13))
                         .foregroundColor(phenomenon.count >= 10 ? .green : .secondary)
                 }
                 ZStack(alignment: .topLeading) {
@@ -277,11 +277,11 @@ struct AddBookView: View {
                 HStack {
                     Text("🎯 목표").font(.system(size: 13, weight: .semibold))
                     Spacer()
-                    Text("\(goal.count)자").font(.system(size: 10))
+                    Text("\(goal.count)자").font(.system(size: 13))
                         .foregroundColor(goal.count >= 5 ? .green : .secondary)
                 }
                 Text("이 책을 다 활용했을 때 어떤 상태가 되어 있고 싶나요?")
-                    .font(.system(size: 11)).foregroundColor(.secondary)
+                    .font(.system(size: 13)).foregroundColor(.secondary)
                 ZStack(alignment: .topLeading) {
                     if goal.isEmpty {
                         Text("\"[상황]에서 [행동]할 수 있게 되고 싶다\"")
@@ -300,9 +300,9 @@ struct AddBookView: View {
 
             if phenomenon.count >= 10 && goal.count >= 5 {
                 HStack(spacing: 6) {
-                    Image(systemName: "checkmark.circle.fill").foregroundColor(.green).font(.system(size: 12))
+                    Image(systemName: "checkmark.circle.fill").foregroundColor(.green).font(.system(size: 13))
                     Text("좋아요! 목표가 명확할수록 필요한 부분을 정확히 찾을 수 있어요")
-                        .font(.system(size: 11)).foregroundColor(.secondary)
+                        .font(.system(size: 13)).foregroundColor(.secondary)
                 }
             }
         }
@@ -315,19 +315,19 @@ struct AddBookView: View {
                 Text("❓ 귀추적 질문들")
                     .font(.system(size: 18, weight: .bold))
                 Text("현상과 목표에서 출발해 탐색할 질문들을 만드세요")
-                    .font(.system(size: 12)).foregroundColor(.secondary)
+                    .font(.system(size: 13)).foregroundColor(.secondary)
             }
 
             // 현상 & 목표 recap (한 줄 요약)
             HStack(spacing: 12) {
                 HStack(spacing: 6) {
-                    Image(systemName: "quote.bubble.fill").font(.system(size: 11)).foregroundColor(.accentColor.opacity(0.7))
-                    Text(phenomenon).font(.system(size: 11)).foregroundColor(.secondary).italic().lineLimit(1)
+                    Image(systemName: "quote.bubble.fill").font(.system(size: 13)).foregroundColor(.accentColor.opacity(0.7))
+                    Text(phenomenon).font(.system(size: 13)).foregroundColor(.secondary).italic().lineLimit(1)
                 }
                 if !goal.isEmpty {
                     HStack(spacing: 6) {
-                        Image(systemName: "scope").font(.system(size: 11)).foregroundColor(.green.opacity(0.8))
-                        Text(goal).font(.system(size: 11)).foregroundColor(.green.opacity(0.8)).lineLimit(1)
+                        Image(systemName: "scope").font(.system(size: 13)).foregroundColor(.green.opacity(0.8))
+                        Text(goal).font(.system(size: 13)).foregroundColor(.green.opacity(0.8)).lineLimit(1)
                     }
                 }
             }
@@ -337,16 +337,16 @@ struct AddBookView: View {
             if !abductiveQuestions.isEmpty {
                 VStack(alignment: .leading, spacing: 6) {
                     Text("추가된 질문 (\(abductiveQuestions.count)개)")
-                        .font(.system(size: 11, weight: .semibold)).foregroundColor(.secondary)
+                        .font(.system(size: 13, weight: .semibold)).foregroundColor(.secondary)
                     ScrollView {
                         VStack(spacing: 4) {
                             ForEach(abductiveQuestions.indices, id: \.self) { i in
                                 HStack(spacing: 8) {
                                     Text("\(i + 1)")
-                                        .font(.system(size: 10, weight: .bold)).foregroundColor(.accentColor)
+                                        .font(.system(size: 13, weight: .bold)).foregroundColor(.accentColor)
                                         .frame(width: 18, height: 18)
                                         .background(Color.accentColor.opacity(0.1)).clipShape(Circle())
-                                    Text(abductiveQuestions[i]).font(.system(size: 12)).lineLimit(2)
+                                    Text(abductiveQuestions[i]).font(.system(size: 13)).lineLimit(2)
                                     Spacer()
                                     Button(action: { abductiveQuestions.remove(at: i) }) {
                                         Image(systemName: "xmark.circle.fill").font(.system(size: 13)).foregroundColor(.secondary.opacity(0.5))
@@ -364,7 +364,7 @@ struct AddBookView: View {
             // 직접 입력 (TextField - 한 줄)
             VStack(alignment: .leading, spacing: 6) {
                 Text(abductiveQuestions.isEmpty ? "질문 입력 *" : "질문 추가")
-                    .font(.system(size: 12, weight: .medium)).foregroundColor(.secondary)
+                    .font(.system(size: 13, weight: .medium)).foregroundColor(.secondary)
                 HStack(spacing: 8) {
                     TextField("예: 내가 변화에 실패하는 진짜 이유는 무엇인가?", text: $currentQuestion)
                         .textFieldStyle(.plain).font(.system(size: 13))
@@ -397,17 +397,17 @@ struct AddBookView: View {
                 Text("💡 나의 가설들")
                     .font(.system(size: 18, weight: .bold))
                 Text("책을 읽기 전에 내 답을 먼저 적어보세요. 틀려도 괜찮아요!")
-                    .font(.system(size: 12)).foregroundColor(.secondary)
+                    .font(.system(size: 13)).foregroundColor(.secondary)
             }
 
             if !abductiveQuestions.isEmpty {
                 HStack(spacing: 6) {
                     Image(systemName: "questionmark.circle.fill")
-                        .font(.system(size: 11)).foregroundColor(.orange.opacity(0.8))
+                        .font(.system(size: 13)).foregroundColor(.orange.opacity(0.8))
                     Text(abductiveQuestions.prefix(2).joined(separator: " • "))
-                        .font(.system(size: 11)).foregroundColor(.secondary).italic().lineLimit(1)
+                        .font(.system(size: 13)).foregroundColor(.secondary).italic().lineLimit(1)
                     if abductiveQuestions.count > 2 {
-                        Text("+\(abductiveQuestions.count - 2)").font(.system(size: 10)).foregroundColor(.secondary)
+                        Text("+\(abductiveQuestions.count - 2)").font(.system(size: 13)).foregroundColor(.secondary)
                     }
                 }
                 .padding(.horizontal, 10).padding(.vertical, 6)
@@ -417,16 +417,16 @@ struct AddBookView: View {
             if !hypotheses.isEmpty {
                 VStack(alignment: .leading, spacing: 6) {
                     Text("추가된 가설 (\(hypotheses.count)개)")
-                        .font(.system(size: 11, weight: .semibold)).foregroundColor(.secondary)
+                        .font(.system(size: 13, weight: .semibold)).foregroundColor(.secondary)
                     ScrollView {
                         VStack(spacing: 4) {
                             ForEach(hypotheses.indices, id: \.self) { i in
                                 HStack(spacing: 8) {
                                     Text("\(i + 1)")
-                                        .font(.system(size: 10, weight: .bold)).foregroundColor(.purple)
+                                        .font(.system(size: 13, weight: .bold)).foregroundColor(.purple)
                                         .frame(width: 18, height: 18)
                                         .background(Color.purple.opacity(0.1)).clipShape(Circle())
-                                    Text(hypotheses[i]).font(.system(size: 12)).lineLimit(2)
+                                    Text(hypotheses[i]).font(.system(size: 13)).lineLimit(2)
                                     Spacer()
                                     Button(action: { hypotheses.remove(at: i) }) {
                                         Image(systemName: "xmark.circle.fill").font(.system(size: 13)).foregroundColor(.secondary.opacity(0.5))
@@ -443,7 +443,7 @@ struct AddBookView: View {
 
             VStack(alignment: .leading, spacing: 6) {
                 Text(hypotheses.isEmpty ? "가설 입력 *" : "가설 추가")
-                    .font(.system(size: 12, weight: .medium)).foregroundColor(.secondary)
+                    .font(.system(size: 13, weight: .medium)).foregroundColor(.secondary)
                 HStack(alignment: .top, spacing: 8) {
                     ZStack(alignment: .topLeading) {
                         if currentHypothesis.isEmpty {
@@ -473,7 +473,7 @@ struct AddBookView: View {
                         Button(starter) {
                             if currentHypothesis.isEmpty { currentHypothesis = starter + " " }
                         }
-                        .buttonStyle(.plain).font(.system(size: 11))
+                        .buttonStyle(.plain).font(.system(size: 13))
                         .padding(.horizontal, 8).padding(.vertical, 4)
                         .background(Color(NSColor.controlBackgroundColor)).cornerRadius(20)
                     }
@@ -499,7 +499,7 @@ struct LabeledTextField: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
-            Text(label).font(.system(size: 12, weight: .medium)).foregroundColor(.secondary)
+            Text(label).font(.system(size: 13, weight: .medium)).foregroundColor(.secondary)
             TextField(placeholder, text: $text).textFieldStyle(.roundedBorder)
         }
     }
@@ -530,8 +530,8 @@ struct KakaoBookRow: View {
 
                 VStack(alignment: .leading, spacing: 3) {
                     Text(book.title).font(.system(size: 13, weight: .medium)).foregroundColor(.primary)
-                    Text(book.authorString).font(.system(size: 11)).foregroundColor(.secondary)
-                    Text(book.publisher).font(.system(size: 10)).foregroundColor(.secondary.opacity(0.7))
+                    Text(book.authorString).font(.system(size: 13)).foregroundColor(.secondary)
+                    Text(book.publisher).font(.system(size: 13)).foregroundColor(.secondary.opacity(0.7))
                 }
                 Spacer()
                 if isSelected {
@@ -555,7 +555,7 @@ struct JourneyStep: View {
     var body: some View {
         VStack(spacing: 4) {
             Text(icon).font(.system(size: 18))
-            Text(label).font(.system(size: 10, weight: .medium)).foregroundColor(color)
+            Text(label).font(.system(size: 13, weight: .medium)).foregroundColor(color)
         }
         .frame(width: 46)
     }
@@ -564,7 +564,7 @@ struct JourneyStep: View {
 struct Arrow: View {
     var body: some View {
         Image(systemName: "arrow.right")
-            .font(.system(size: 10)).foregroundColor(.secondary.opacity(0.4)).frame(width: 16)
+            .font(.system(size: 13)).foregroundColor(.secondary.opacity(0.4)).frame(width: 16)
     }
 }
 
@@ -582,10 +582,10 @@ struct StepIndicator: View {
                                 .fill(i <= currentStep ? Color.accentColor : Color(NSColor.controlBackgroundColor))
                                 .frame(width: 26, height: 26)
                             Text("\(i + 1)")
-                                .font(.system(size: 11, weight: .bold))
+                                .font(.system(size: 13, weight: .bold))
                                 .foregroundColor(i <= currentStep ? .white : .secondary)
                         }
-                        Text(steps[i]).font(.system(size: 10))
+                        Text(steps[i]).font(.system(size: 13))
                             .foregroundColor(i == currentStep ? .accentColor : .secondary).lineLimit(1)
                     }
                     if i < steps.count - 1 {

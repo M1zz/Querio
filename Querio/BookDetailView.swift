@@ -21,7 +21,7 @@ struct BookDetailView: View {
                 ForEach(Array(tabs.enumerated()), id: \.offset) { i, tab in
                     Button(action: { selectedTab = i }) {
                         HStack(spacing: 6) {
-                            Image(systemName: tab.1).font(.system(size: 12))
+                            Image(systemName: tab.1).font(.system(size: 13))
                             Text(tab.0).font(.system(size: 13, weight: .medium))
                         }
                         .foregroundColor(selectedTab == i ? .accentColor : .secondary)
@@ -50,7 +50,7 @@ struct BookDetailView: View {
                         Image(systemName: book.status.icon)
                         Text(book.status.rawValue)
                     }
-                    .font(.system(size: 12))
+                    .font(.system(size: 13))
                     .padding(.horizontal, 12).padding(.vertical, 6)
                     .background(Color(NSColor.controlBackgroundColor)).cornerRadius(20)
                 }
@@ -102,13 +102,13 @@ struct BookDetailView: View {
                 Text(book.author).font(.system(size: 13)).foregroundColor(.secondary)
                 HStack(spacing: 12) {
                     Label(book.createdAt.formatted(date: .abbreviated, time: .omitted), systemImage: "calendar")
-                        .font(.system(size: 11)).foregroundColor(.secondary)
+                        .font(.system(size: 13)).foregroundColor(.secondary)
                     if let session = book.session {
                         Label("\(session.evidences.count)개 증거", systemImage: "doc.text.magnifyingglass")
-                            .font(.system(size: 11)).foregroundColor(.secondary)
+                            .font(.system(size: 13)).foregroundColor(.secondary)
                         if !session.rounds.isEmpty {
                             Label("\(session.rounds.count)라운드", systemImage: "arrow.trianglehead.2.clockwise")
-                                .font(.system(size: 11)).foregroundColor(.secondary)
+                                .font(.system(size: 13)).foregroundColor(.secondary)
                         }
                     }
                 }
@@ -156,7 +156,7 @@ struct PreReadingDesignTab: View {
                         HStack(spacing: 10) {
                             let idx = book.abductiveQuestions.firstIndex(of: question) ?? 0
                             Text("\(idx + 1)")
-                                .font(.system(size: 11, weight: .bold)).foregroundColor(.accentColor)
+                                .font(.system(size: 13, weight: .bold)).foregroundColor(.accentColor)
                                 .frame(width: 20, height: 20)
                                 .background(Color.accentColor.opacity(0.1)).clipShape(Circle())
                             Text(question).font(.system(size: 13))
@@ -200,7 +200,7 @@ struct PreReadingDesignTab: View {
                         HStack(spacing: 10) {
                             let idx = book.hypotheses.firstIndex(of: hypothesis) ?? 0
                             Text("\(idx + 1)")
-                                .font(.system(size: 11, weight: .bold)).foregroundColor(.purple)
+                                .font(.system(size: 13, weight: .bold)).foregroundColor(.purple)
                                 .frame(width: 20, height: 20)
                                 .background(Color.purple.opacity(0.1)).clipShape(Circle())
                             Text(hypothesis).font(.system(size: 13))
@@ -265,7 +265,7 @@ struct ReadingTab: View {
             if !book.goal.isEmpty {
                 VStack(alignment: .leading, spacing: 8) {
                     Text("달성할 목표")
-                        .font(.system(size: 12, weight: .semibold)).foregroundColor(.secondary)
+                        .font(.system(size: 13, weight: .semibold)).foregroundColor(.secondary)
                     HStack(alignment: .top, spacing: 10) {
                         Image(systemName: "scope").foregroundColor(.green).font(.system(size: 15))
                         Text(book.goal).font(.system(size: 13)).foregroundColor(.primary.opacity(0.8))
@@ -279,16 +279,16 @@ struct ReadingTab: View {
             if !book.hypotheses.isEmpty {
                 VStack(alignment: .leading, spacing: 8) {
                     Text("추적 중인 가설 (\(book.hypotheses.count)개)")
-                        .font(.system(size: 12, weight: .semibold)).foregroundColor(.secondary)
+                        .font(.system(size: 13, weight: .semibold)).foregroundColor(.secondary)
                     VStack(spacing: 6) {
                         ForEach(book.hypotheses.indices, id: \.self) { i in
                             HStack(alignment: .top, spacing: 8) {
                                 Text("\(i + 1)")
-                                    .font(.system(size: 10, weight: .bold)).foregroundColor(.purple)
+                                    .font(.system(size: 13, weight: .bold)).foregroundColor(.purple)
                                     .frame(width: 18, height: 18)
                                     .background(Color.purple.opacity(0.1)).clipShape(Circle())
                                 Text(book.hypotheses[i])
-                                    .font(.system(size: 12)).italic().foregroundColor(.primary.opacity(0.8))
+                                    .font(.system(size: 13)).italic().foregroundColor(.primary.opacity(0.8))
                                 Spacer()
                             }
                         }
@@ -302,21 +302,21 @@ struct ReadingTab: View {
                 HStack {
                     VStack(alignment: .leading, spacing: 2) {
                         Text("읽기 라운드")
-                            .font(.system(size: 12, weight: .semibold)).foregroundColor(.secondary)
+                            .font(.system(size: 13, weight: .semibold)).foregroundColor(.secondary)
                         Text("딱 1장만 고른다면? 가장 목표에 가까운 장을 선택하세요")
-                            .font(.system(size: 10)).foregroundColor(.secondary.opacity(0.7))
+                            .font(.system(size: 13)).foregroundColor(.secondary.opacity(0.7))
                     }
                     Spacer()
                     Button(action: { showAddRound = true }) {
                         Label("라운드 추가", systemImage: "plus")
-                            .font(.system(size: 11))
+                            .font(.system(size: 13))
                     }
                     .buttonStyle(.plain).foregroundColor(.accentColor)
                 }
 
                 if rounds.isEmpty {
                     Text("읽을 장을 선택하고 기대하는 것을 추측한 뒤 읽기 시작하세요")
-                        .font(.system(size: 12)).foregroundColor(.secondary)
+                        .font(.system(size: 13)).foregroundColor(.secondary)
                         .padding(12)
                         .background(Color(NSColor.controlBackgroundColor)).cornerRadius(8)
                 } else {
@@ -386,17 +386,17 @@ struct ReadingRoundCard: View {
         VStack(alignment: .leading, spacing: 8) {
             HStack {
                 Label(round.chapter, systemImage: "book.pages")
-                    .font(.system(size: 12, weight: .semibold))
+                    .font(.system(size: 13, weight: .semibold))
                 Spacer()
                 if round.goalAchieved {
                     Label("목표 달성!", systemImage: "checkmark.circle.fill")
-                        .font(.system(size: 10, weight: .semibold)).foregroundColor(.green)
+                        .font(.system(size: 13, weight: .semibold)).foregroundColor(.green)
                 }
             }
             if !round.guess.isEmpty {
                 HStack(alignment: .top, spacing: 6) {
-                    Text("기대:").font(.system(size: 10, weight: .semibold)).foregroundColor(.secondary)
-                    Text(round.guess).font(.system(size: 11)).foregroundColor(.secondary).italic()
+                    Text("기대:").font(.system(size: 13, weight: .semibold)).foregroundColor(.secondary)
+                    Text(round.guess).font(.system(size: 13)).foregroundColor(.secondary).italic()
                 }
             }
         }
@@ -439,7 +439,7 @@ struct AddRoundView: View {
                 VStack(alignment: .leading, spacing: 6) {
                     Text("📖 읽을 장 *").font(.system(size: 13, weight: .medium))
                     Text("목표 달성에 가장 도움될 것 같은 장 하나를 고르세요")
-                        .font(.system(size: 11)).foregroundColor(.secondary)
+                        .font(.system(size: 13)).foregroundColor(.secondary)
                     TextField("예: 10장 — 최고의 결과를 내는 여섯 가지 변화의 길", text: $chapter)
                         .textFieldStyle(.roundedBorder)
                 }
@@ -447,7 +447,7 @@ struct AddRoundView: View {
                 VStack(alignment: .leading, spacing: 6) {
                     Text("🔮 이 장에서 기대하는 것").font(.system(size: 13, weight: .medium))
                     Text("읽기 전에 미리 추측해보세요 — 맞고 틀림은 중요하지 않아요")
-                        .font(.system(size: 11)).foregroundColor(.secondary)
+                        .font(.system(size: 13)).foregroundColor(.secondary)
                     TextEditor(text: $guess)
                         .font(.system(size: 13)).frame(minHeight: 90)
                         .scrollContentBackground(.hidden).padding(10)
@@ -481,11 +481,11 @@ struct ConclusionTab: View {
             // 처음 가설들
             if !book.hypotheses.isEmpty {
                 VStack(alignment: .leading, spacing: 10) {
-                    Text("처음 가설들").font(.system(size: 12, weight: .semibold)).foregroundColor(.secondary)
+                    Text("처음 가설들").font(.system(size: 13, weight: .semibold)).foregroundColor(.secondary)
                     ForEach(book.hypotheses.indices, id: \.self) { i in
                         HStack(alignment: .top, spacing: 8) {
                             Text("\(i + 1)")
-                                .font(.system(size: 10, weight: .bold)).foregroundColor(.purple)
+                                .font(.system(size: 13, weight: .bold)).foregroundColor(.purple)
                                 .frame(width: 18, height: 18)
                                 .background(Color.purple.opacity(0.1)).clipShape(Circle())
                             Text(book.hypotheses[i])
@@ -499,7 +499,7 @@ struct ConclusionTab: View {
             // 수집한 증거 요약
             if !evidences.isEmpty {
                 VStack(alignment: .leading, spacing: 10) {
-                    Text("수집한 증거").font(.system(size: 12, weight: .semibold)).foregroundColor(.secondary)
+                    Text("수집한 증거").font(.system(size: 13, weight: .semibold)).foregroundColor(.secondary)
                     HStack(spacing: 12) {
                         ForEach(EvidenceType.allCases, id: \.self) { type in
                             let count = evidences.filter { $0.type == type }.count
@@ -507,7 +507,7 @@ struct ConclusionTab: View {
                                 Image(systemName: type.icon)
                                 Text("\(count)개")
                             }
-                            .font(.system(size: 12)).foregroundColor(.secondary)
+                            .font(.system(size: 13)).foregroundColor(.secondary)
                         }
                     }
                 }
@@ -532,9 +532,9 @@ struct ConclusionTab: View {
             // 멈추기 결정
             VStack(alignment: .leading, spacing: 12) {
                 Divider()
-                Text("멈추기 결정").font(.system(size: 12, weight: .semibold)).foregroundColor(.secondary)
+                Text("멈추기 결정").font(.system(size: 13, weight: .semibold)).foregroundColor(.secondary)
                 Text("목표를 달성했거나, 이 책에서 더 얻을 것이 없다면 과감히 덮으세요\n삶은 유한하고 책은 무한합니다.")
-                    .font(.system(size: 12)).foregroundColor(.secondary)
+                    .font(.system(size: 13)).foregroundColor(.secondary)
 
                 if book.status != .finished {
                     HStack(spacing: 12) {
@@ -609,14 +609,14 @@ struct AddEvidenceView: View {
                     // 가설들 reminder
                     if !hypotheses.isEmpty {
                         VStack(alignment: .leading, spacing: 6) {
-                            Text("추적 가설들").font(.system(size: 11, weight: .semibold)).foregroundColor(.secondary)
+                            Text("추적 가설들").font(.system(size: 13, weight: .semibold)).foregroundColor(.secondary)
                             ForEach(hypotheses.indices, id: \.self) { i in
                                 HStack(alignment: .top, spacing: 6) {
                                     Text("\(i + 1)")
-                                        .font(.system(size: 9, weight: .bold)).foregroundColor(.purple)
+                                        .font(.system(size: 13, weight: .bold)).foregroundColor(.purple)
                                         .frame(width: 16, height: 16)
                                         .background(Color.purple.opacity(0.1)).clipShape(Circle())
-                                    Text(hypotheses[i]).font(.system(size: 12)).italic()
+                                    Text(hypotheses[i]).font(.system(size: 13)).italic()
                                 }
                             }
                         }
@@ -633,7 +633,7 @@ struct AddEvidenceView: View {
                                         Image(systemName: type.icon)
                                         Text(type.rawValue)
                                     }
-                                    .font(.system(size: 12, weight: .medium))
+                                    .font(.system(size: 13, weight: .medium))
                                     .padding(.horizontal, 12).padding(.vertical, 8)
                                     .background(selectedType == type ? Color.accentColor.opacity(0.15) : Color(NSColor.controlBackgroundColor))
                                     .foregroundColor(selectedType == type ? .accentColor : .secondary)
@@ -689,7 +689,7 @@ struct SectionHeader: View {
                 Text(icon).font(.system(size: 18))
                 Text(title).font(.system(size: 16, weight: .bold))
             }
-            Text(subtitle).font(.system(size: 12)).foregroundColor(.secondary)
+            Text(subtitle).font(.system(size: 13)).foregroundColor(.secondary)
         }
     }
 }
@@ -725,7 +725,7 @@ struct EvidenceStat: View {
     var body: some View {
         HStack(spacing: 6) {
             Image(systemName: icon).foregroundColor(color)
-            Text("\(count) \(label)").font(.system(size: 12, weight: .medium))
+            Text("\(count) \(label)").font(.system(size: 13, weight: .medium))
         }
         .padding(.horizontal, 12).padding(.vertical, 6)
         .background(color.opacity(0.08)).cornerRadius(20)
@@ -751,20 +751,20 @@ struct EvidenceCard: View {
                     Image(systemName: evidence.type.icon)
                     Text(evidence.type.rawValue)
                 }
-                .font(.system(size: 11, weight: .semibold)).foregroundColor(typeColor)
+                .font(.system(size: 13, weight: .semibold)).foregroundColor(typeColor)
                 Spacer()
                 if let page = evidence.page {
-                    Text("p.\(page)").font(.system(size: 11)).foregroundColor(.secondary)
+                    Text("p.\(page)").font(.system(size: 13)).foregroundColor(.secondary)
                 }
                 Button(action: onDelete) {
-                    Image(systemName: "xmark").font(.system(size: 10)).foregroundColor(.secondary)
+                    Image(systemName: "xmark").font(.system(size: 13)).foregroundColor(.secondary)
                 }.buttonStyle(.plain)
             }
 
             Text("\"\(evidence.quote)\"").font(.system(size: 13)).italic()
 
             if !evidence.memo.isEmpty {
-                Text(evidence.memo).font(.system(size: 12)).foregroundColor(.secondary)
+                Text(evidence.memo).font(.system(size: 13)).foregroundColor(.secondary)
             }
         }
         .padding(14)
