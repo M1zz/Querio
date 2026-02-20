@@ -4,12 +4,14 @@ import SwiftData
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
     @Query(sort: \Book.createdAt, order: .reverse) private var books: [Book]
-    
+
     @State private var selectedBook: Book?
     @State private var showAddBook = false
     @State private var searchText = ""
     @State private var selectedFilter: BookStatus? = nil
-    
+    @State private var showRestoreAlert = false
+    @State private var restoreCount = 0
+
     var filteredBooks: [Book] {
         let filtered = selectedFilter == nil ? books : books.filter { $0.status == selectedFilter }
         if searchText.isEmpty { return filtered }
@@ -18,7 +20,7 @@ struct ContentView: View {
             $0.author.localizedCaseInsensitiveContains(searchText)
         }
     }
-    
+
     var body: some View {
         NavigationSplitView {
             // MARK: Sidebar
@@ -44,9 +46,9 @@ struct ContentView: View {
                 }
                 .padding(.horizontal, 16)
                 .padding(.vertical, 14)
-                
+
                 Divider()
-                
+
                 // Filter chips
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 8) {
@@ -62,7 +64,7 @@ struct ContentView: View {
                     .padding(.horizontal, 16)
                     .padding(.vertical, 10)
                 }
-                
+
                 // Search
                 HStack {
                     Image(systemName: "magnifyingglass")
@@ -78,9 +80,9 @@ struct ContentView: View {
                 .cornerRadius(8)
                 .padding(.horizontal, 12)
                 .padding(.bottom, 8)
-                
+
                 Divider()
-                
+
                 // Book list
                 if filteredBooks.isEmpty {
                     VStack(spacing: 12) {
@@ -102,7 +104,7 @@ struct ContentView: View {
             }
             .frame(minWidth: 260)
             .background(Color(NSColor.windowBackgroundColor))
-            
+
         } detail: {
             if let book = selectedBook {
                 BookDetailView(book: book)
@@ -116,6 +118,30 @@ struct ContentView: View {
                 selectedBook = newBook
             }
         }
+        .onAppear {
+            if books.isEmpty {
+                let count = BackupManager.shared.backupBookCount()
+                if count > 0 {
+                    restoreCount = count
+                    showRestoreAlert = true
+                }
+            } else {
+                BackupManager.shared.save(books: books)
+            }
+        }
+        .onChange(of: books) { _, newBooks in
+            if !newBooks.isEmpty {
+                BackupManager.shared.save(books: newBooks)
+            }
+        }
+        .alert("백업 데이터 복구", isPresented: $showRestoreAlert) {
+            Button("복구하기") {
+                BackupManager.shared.restore(into: modelContext)
+            }
+            Button("취소", role: .cancel) {}
+        } message: {
+            Text("저장된 백업에서 \(restoreCount)권의 책을 복구할 수 있습니다. 복구하시겠어요?")
+        }
     }
 }
 
@@ -124,7 +150,7 @@ struct FilterChip: View {
     let label: String
     let isSelected: Bool
     let action: () -> Void
-    
+
     var body: some View {
         Button(action: action) {
             Text(label)
@@ -142,7 +168,7 @@ struct FilterChip: View {
 // MARK: - Book Row
 struct BookRow: View {
     let book: Book
-    
+
     var body: some View {
         HStack(spacing: 10) {
             // Cover
@@ -164,7 +190,7 @@ struct BookRow: View {
             .frame(width: 32, height: 44)
             .cornerRadius(4)
             .clipped()
-            
+
             VStack(alignment: .leading, spacing: 3) {
                 Text(book.title)
                     .font(.system(size: 13, weight: .medium))
@@ -173,7 +199,7 @@ struct BookRow: View {
                     .font(.system(size: 13))
                     .foregroundColor(.secondary)
                     .lineLimit(1)
-                
+
                 HStack(spacing: 4) {
                     Image(systemName: book.status.icon)
                         .font(.system(size: 13))
