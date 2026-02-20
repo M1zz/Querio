@@ -22,7 +22,6 @@ struct AddBookView: View {
     @State private var currentQuestion = ""
     @State private var hypotheses: [String] = []
     @State private var currentHypothesis = ""
-    @State private var suggestedQuestions: [String] = []
 
     let steps = ["📚 책 선택", "🎯 목표 설정", "❓ 질문들", "💡 가설들"]
 
@@ -105,9 +104,7 @@ struct AddBookView: View {
     }
 
     func handleNext() {
-        if currentStep == 1 {
-            generateSuggestedQuestions()
-        } else if currentStep == 2 {
+        if currentStep == 2 {
             let q = currentQuestion.trimmingCharacters(in: .whitespaces)
             if !q.isEmpty && !abductiveQuestions.contains(q) {
                 abductiveQuestions.append(q)
@@ -148,46 +145,6 @@ struct AddBookView: View {
         book.session = ReadingSession()
         onAdd(book)
         dismiss()
-    }
-
-    func generateSuggestedQuestions() {
-        let bookTitle = selectedKakaoBook?.title ?? manualTitle
-        suggestedQuestions = generateQuestions(combined: phenomenon + " " + goal, bookTitle: bookTitle)
-    }
-
-    func generateQuestions(combined: String, bookTitle: String) -> [String] {
-        var questions: [String] = []
-        let lower = combined.lowercased()
-
-        if lower.contains("시간") || lower.contains("생산") || lower.contains("할 일") {
-            questions.append("내가 시간을 제대로 못 쓰는 진짜 원인은 무엇인가?")
-            questions.append("생산성의 본질은 더 많이 하는 것인가, 덜 하는 것인가?")
-        }
-        if lower.contains("사람") || lower.contains("관계") || lower.contains("팀") || lower.contains("리더") {
-            questions.append("사람을 움직이는 것은 논리인가, 감정인가?")
-            questions.append("신뢰는 어디서 시작되는가?")
-        }
-        if lower.contains("돈") || lower.contains("경제") || lower.contains("투자") {
-            questions.append("나의 돈에 대한 믿음 중 틀린 것은 무엇인가?")
-            questions.append("부의 본질은 얼마를 버느냐인가, 얼마를 지키느냐인가?")
-        }
-        if lower.contains("습관") || lower.contains("변화") || lower.contains("루틴") {
-            questions.append("내가 변화에 실패하는 진짜 이유는 무엇인가?")
-            questions.append("습관은 의지로 만들어지는가, 환경으로 만들어지는가?")
-        }
-        if lower.contains("불안") || lower.contains("두려움") || lower.contains("스트레스") {
-            questions.append("나의 불안이 실제 위험에서 오는가, 생각에서 오는가?")
-            questions.append("감정을 다스린다는 것은 억누르는 것인가, 이해하는 것인가?")
-        }
-        if questions.isEmpty {
-            questions = [
-                "이 상황에서 내가 놓치고 있는 핵심은 무엇인가?",
-                "지금 내가 겪는 현상의 근본 원인은 무엇인가?",
-                "이 문제를 해결한 사람들은 어떻게 생각했는가?",
-                "\(bookTitle)이/가 내 상황에 어떤 새로운 시각을 줄 수 있는가?"
-            ]
-        }
-        return Array(questions.prefix(4))
     }
 
     // MARK: Step 0 - Book Search
@@ -376,38 +333,6 @@ struct AddBookView: View {
             }
             .padding(10).background(Color.accentColor.opacity(0.05)).cornerRadius(8)
 
-            // 추천 질문 (스크롤 영역)
-            if !suggestedQuestions.isEmpty {
-                VStack(alignment: .leading, spacing: 8) {
-                    Text("✨ 추천 질문 (탭하여 추가/해제)")
-                        .font(.system(size: 11, weight: .semibold)).foregroundColor(.secondary)
-                    ScrollView {
-                        VStack(spacing: 6) {
-                            ForEach(suggestedQuestions, id: \.self) { q in
-                                let isAdded = abductiveQuestions.contains(q)
-                                Button(action: {
-                                    if isAdded { abductiveQuestions.removeAll { $0 == q } }
-                                    else { abductiveQuestions.append(q) }
-                                }) {
-                                    HStack {
-                                        Text(q).font(.system(size: 12)).foregroundColor(.primary).multilineTextAlignment(.leading)
-                                        Spacer()
-                                        Image(systemName: isAdded ? "checkmark.circle.fill" : "plus.circle")
-                                            .foregroundColor(isAdded ? .accentColor : .secondary)
-                                    }
-                                    .padding(.horizontal, 10).padding(.vertical, 8)
-                                    .background(isAdded ? Color.accentColor.opacity(0.1) : Color(NSColor.controlBackgroundColor))
-                                    .cornerRadius(7)
-                                    .overlay(RoundedRectangle(cornerRadius: 7).stroke(isAdded ? Color.accentColor : Color.clear, lineWidth: 1.5))
-                                }
-                                .buttonStyle(.plain)
-                            }
-                        }
-                    }
-                    .frame(maxHeight: 150)
-                }
-            }
-
             // 추가된 질문 목록
             if !abductiveQuestions.isEmpty {
                 VStack(alignment: .leading, spacing: 6) {
@@ -441,7 +366,7 @@ struct AddBookView: View {
                 Text(abductiveQuestions.isEmpty ? "질문 입력 *" : "질문 추가")
                     .font(.system(size: 12, weight: .medium)).foregroundColor(.secondary)
                 HStack(spacing: 8) {
-                    TextField("질문을 입력하고 + 버튼을 누르세요", text: $currentQuestion)
+                    TextField("예: 내가 변화에 실패하는 진짜 이유는 무엇인가?", text: $currentQuestion)
                         .textFieldStyle(.plain).font(.system(size: 13))
                         .padding(.horizontal, 10).padding(.vertical, 8)
                         .background(Color(NSColor.controlBackgroundColor)).cornerRadius(8)
