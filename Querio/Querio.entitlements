@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!-- iCloud CloudKit 비공개 데이터베이스 동기화 -->
+	<key>com.apple.developer.icloud-container-identifiers</key>
+	<array>
+		<string>iCloud.com.querio.app</string>
+	</array>
+	<key>com.apple.developer.icloud-services</key>
+	<array>
+		<string>CloudKit</string>
+	</array>
+	<!-- macOS 앱 샌드박스 (App Store 배포 시 필요, 개발 시 선택적) -->
+	<key>com.apple.security.app-sandbox</key>
+	<false/>
+	<!-- 네트워크 클라이언트 (Kakao API + CloudKit 통신) -->
+	<key>com.apple.security.network.client</key>
+	<true/>
+</dict>
+</plist>

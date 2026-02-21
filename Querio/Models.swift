@@ -75,6 +75,15 @@ enum BookStatus: String, Codable, CaseIterable {
         case .abandoned: return "red"
         }
     }
+
+    var gardenEmoji: String {
+        switch self {
+        case .wantToRead: return "🌱"
+        case .reading:    return "🌿"
+        case .finished:   return "🌳"
+        case .abandoned:  return "🥀"
+        }
+    }
 }
 
 // MARK: - Reading Session Model

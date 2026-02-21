@@ -100,7 +100,7 @@ struct AddBookView: View {
             .padding(.horizontal, 24).padding(.vertical, 14)
         }
         .frame(width: 560, height: 620)
-        .background(Color(NSColor.windowBackgroundColor))
+        .background(Color.gardenWindow)
     }
 
     func handleNext() {
@@ -176,7 +176,7 @@ struct AddBookView: View {
                     if isSearching { ProgressView().scaleEffect(0.7) }
                     Button("검색") { searchBooks() }.disabled(searchQuery.isEmpty)
                 }
-                .padding(10).background(Color(NSColor.controlBackgroundColor)).cornerRadius(8)
+                .padding(10).background(Color.gardenSurface).cornerRadius(8)
 
                 if !searchResults.isEmpty {
                     ScrollView {
@@ -268,7 +268,7 @@ struct AddBookView: View {
                         .scrollContentBackground(.hidden)
                         .padding(.horizontal, 6).padding(.vertical, 4)
                 }
-                .background(Color(NSColor.controlBackgroundColor))
+                .background(Color.gardenSurface)
                 .cornerRadius(8)
                 .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.secondary.opacity(0.2)))
             }
@@ -293,7 +293,7 @@ struct AddBookView: View {
                         .scrollContentBackground(.hidden)
                         .padding(.horizontal, 6).padding(.vertical, 4)
                 }
-                .background(Color(NSColor.controlBackgroundColor))
+                .background(Color.gardenSurface)
                 .cornerRadius(8)
                 .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.secondary.opacity(0.2)))
             }
@@ -353,7 +353,7 @@ struct AddBookView: View {
                                     }.buttonStyle(.plain)
                                 }
                                 .padding(.horizontal, 8).padding(.vertical, 6)
-                                .background(Color(NSColor.controlBackgroundColor)).cornerRadius(7)
+                                .background(Color.gardenSurface).cornerRadius(7)
                             }
                         }
                     }
@@ -369,7 +369,7 @@ struct AddBookView: View {
                     TextField("예: 내가 변화에 실패하는 진짜 이유는 무엇인가?", text: $currentQuestion)
                         .textFieldStyle(.plain).font(.system(size: 13))
                         .padding(.horizontal, 10).padding(.vertical, 8)
-                        .background(Color(NSColor.controlBackgroundColor)).cornerRadius(8)
+                        .background(Color.gardenSurface).cornerRadius(8)
                         .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.secondary.opacity(0.2)))
                         .onSubmit { addCurrentQuestion() }
                     Button(action: addCurrentQuestion) {
@@ -433,7 +433,7 @@ struct AddBookView: View {
                                     }.buttonStyle(.plain)
                                 }
                                 .padding(.horizontal, 8).padding(.vertical, 6)
-                                .background(Color(NSColor.controlBackgroundColor)).cornerRadius(7)
+                                .background(Color.gardenSurface).cornerRadius(7)
                             }
                         }
                     }
@@ -456,7 +456,7 @@ struct AddBookView: View {
                             .scrollContentBackground(.hidden)
                             .padding(.horizontal, 6).padding(.vertical, 4)
                     }
-                    .background(Color(NSColor.controlBackgroundColor))
+                    .background(Color.gardenSurface)
                     .cornerRadius(8)
                     .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.secondary.opacity(0.2)))
 
@@ -475,7 +475,7 @@ struct AddBookView: View {
                         }
                         .buttonStyle(.plain).font(.system(size: 13))
                         .padding(.horizontal, 8).padding(.vertical, 4)
-                        .background(Color(NSColor.controlBackgroundColor)).cornerRadius(20)
+                        .background(Color.gardenSurface).cornerRadius(20)
                     }
                 }
             }
@@ -539,7 +539,7 @@ struct KakaoBookRow: View {
                 }
             }
             .padding(10)
-            .background(isSelected ? Color.accentColor.opacity(0.08) : Color(NSColor.controlBackgroundColor))
+            .background(isSelected ? Color.accentColor.opacity(0.08) : Color.gardenSurface)
             .cornerRadius(8)
             .overlay(RoundedRectangle(cornerRadius: 8).stroke(isSelected ? Color.accentColor : Color.clear, lineWidth: 1.5))
         }
@@ -579,7 +579,7 @@ struct StepIndicator: View {
                     VStack(spacing: 4) {
                         ZStack {
                             Circle()
-                                .fill(i <= currentStep ? Color.accentColor : Color(NSColor.controlBackgroundColor))
+                                .fill(i <= currentStep ? Color.accentColor : Color.gardenSurface)
                                 .frame(width: 26, height: 26)
                             Text("\(i + 1)")
                                 .font(.system(size: 13, weight: .bold))

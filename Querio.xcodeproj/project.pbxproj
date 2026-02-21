@@ -13,6 +13,8 @@
 		A003 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = A103 /* Models.swift */; };
 		A004 /* AddBookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A104 /* AddBookView.swift */; };
 		A005 /* BookDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A105 /* BookDetailView.swift */; };
+		A006 /* BackupManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A106 /* BackupManager.swift */; };
+		A007 /* MoodboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A108 /* MoodboardView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +25,9 @@
 		A103 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		A104 /* AddBookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBookView.swift; sourceTree = "<group>"; };
 		A105 /* BookDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookDetailView.swift; sourceTree = "<group>"; };
+		A106 /* BackupManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupManager.swift; sourceTree = "<group>"; };
+		A107 /* Querio.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Querio.entitlements; sourceTree = "<group>"; };
+		A108 /* MoodboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoodboardView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +57,9 @@
 				A103 /* Models.swift */,
 				A104 /* AddBookView.swift */,
 				A105 /* BookDetailView.swift */,
+				A106 /* BackupManager.swift */,
+				A107 /* Querio.entitlements */,
+				A108 /* MoodboardView.swift */,
 				9C5392D62F48477200905CF0 /* Assets.xcassets */,
 			);
 			path = Querio;
@@ -139,6 +147,8 @@
 				A003 /* Models.swift in Sources */,
 				A004 /* AddBookView.swift in Sources */,
 				A005 /* BookDetailView.swift in Sources */,
+				A006 /* BackupManager.swift in Sources */,
+				A007 /* MoodboardView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

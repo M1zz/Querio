@@ -52,7 +52,7 @@ struct BookDetailView: View {
                     }
                     .font(.system(size: 13))
                     .padding(.horizontal, 12).padding(.vertical, 6)
-                    .background(Color(NSColor.controlBackgroundColor)).cornerRadius(20)
+                    .background(Color.gardenSurface).cornerRadius(20)
                 }
                 .menuStyle(.borderlessButton).padding(.trailing, 16)
             }
@@ -150,7 +150,7 @@ struct PreReadingDesignTab: View {
                     Text("아직 질문이 없어요. 아래에서 추가해보세요.")
                         .font(.system(size: 13)).foregroundColor(.secondary)
                         .padding(12).frame(maxWidth: .infinity, alignment: .leading)
-                        .background(Color(NSColor.controlBackgroundColor)).cornerRadius(8)
+                        .background(Color.gardenSurface).cornerRadius(8)
                 } else {
                     ForEach(book.abductiveQuestions, id: \.self) { question in
                         HStack(spacing: 10) {
@@ -166,7 +166,7 @@ struct PreReadingDesignTab: View {
                             }.buttonStyle(.plain)
                         }
                         .padding(10)
-                        .background(Color(NSColor.controlBackgroundColor)).cornerRadius(8)
+                        .background(Color.gardenSurface).cornerRadius(8)
                     }
                 }
 
@@ -174,7 +174,7 @@ struct PreReadingDesignTab: View {
                     TextField("새 질문 추가...", text: $newQuestion)
                         .textFieldStyle(.plain).font(.system(size: 13))
                         .padding(10)
-                        .background(Color(NSColor.controlBackgroundColor)).cornerRadius(8)
+                        .background(Color.gardenSurface).cornerRadius(8)
                         .onSubmit { addQuestion() }
                     Button(action: addQuestion) {
                         Image(systemName: "plus.circle.fill")
@@ -194,7 +194,7 @@ struct PreReadingDesignTab: View {
                     Text("아직 가설이 없어요. 아래에서 추가해보세요.")
                         .font(.system(size: 13)).foregroundColor(.secondary)
                         .padding(12).frame(maxWidth: .infinity, alignment: .leading)
-                        .background(Color(NSColor.controlBackgroundColor)).cornerRadius(8)
+                        .background(Color.gardenSurface).cornerRadius(8)
                 } else {
                     ForEach(book.hypotheses, id: \.self) { hypothesis in
                         HStack(spacing: 10) {
@@ -210,7 +210,7 @@ struct PreReadingDesignTab: View {
                             }.buttonStyle(.plain)
                         }
                         .padding(10)
-                        .background(Color(NSColor.controlBackgroundColor)).cornerRadius(8)
+                        .background(Color.gardenSurface).cornerRadius(8)
                     }
                 }
 
@@ -218,7 +218,7 @@ struct PreReadingDesignTab: View {
                     TextField("새 가설 추가...", text: $newHypothesis)
                         .textFieldStyle(.plain).font(.system(size: 13))
                         .padding(10)
-                        .background(Color(NSColor.controlBackgroundColor)).cornerRadius(8)
+                        .background(Color.gardenSurface).cornerRadius(8)
                         .onSubmit { addHypothesis() }
                     Button(action: addHypothesis) {
                         Image(systemName: "plus.circle.fill")
@@ -318,7 +318,7 @@ struct ReadingTab: View {
                     Text("읽을 장을 선택하고 기대하는 것을 추측한 뒤 읽기 시작하세요")
                         .font(.system(size: 13)).foregroundColor(.secondary)
                         .padding(12)
-                        .background(Color(NSColor.controlBackgroundColor)).cornerRadius(8)
+                        .background(Color.gardenSurface).cornerRadius(8)
                 } else {
                     VStack(spacing: 8) {
                         ForEach(rounds) { round in
@@ -401,7 +401,7 @@ struct ReadingRoundCard: View {
             }
         }
         .padding(12)
-        .background(round.goalAchieved ? Color.green.opacity(0.06) : Color(NSColor.controlBackgroundColor))
+        .background(round.goalAchieved ? Color.green.opacity(0.06) : Color.gardenSurface)
         .cornerRadius(8)
         .overlay(RoundedRectangle(cornerRadius: 8).stroke(round.goalAchieved ? Color.green.opacity(0.3) : Color.secondary.opacity(0.1)))
     }
@@ -451,7 +451,7 @@ struct AddRoundView: View {
                     TextEditor(text: $guess)
                         .font(.system(size: 13)).frame(minHeight: 90)
                         .scrollContentBackground(.hidden).padding(10)
-                        .background(Color(NSColor.controlBackgroundColor)).cornerRadius(8)
+                        .background(Color.gardenSurface).cornerRadius(8)
                 }
 
                 Toggle(isOn: $goalAchieved) {
@@ -465,7 +465,7 @@ struct AddRoundView: View {
             Spacer()
         }
         .frame(width: 480, height: 400)
-        .background(Color(NSColor.windowBackgroundColor))
+        .background(Color.gardenWindow)
     }
 }
 
@@ -635,7 +635,7 @@ struct AddEvidenceView: View {
                                     }
                                     .font(.system(size: 13, weight: .medium))
                                     .padding(.horizontal, 12).padding(.vertical, 8)
-                                    .background(selectedType == type ? Color.accentColor.opacity(0.15) : Color(NSColor.controlBackgroundColor))
+                                    .background(selectedType == type ? Color.accentColor.opacity(0.15) : Color.gardenSurface)
                                     .foregroundColor(selectedType == type ? .accentColor : .secondary)
                                     .cornerRadius(8)
                                     .overlay(RoundedRectangle(cornerRadius: 8).stroke(selectedType == type ? Color.accentColor : Color.clear, lineWidth: 1.5))
@@ -650,7 +650,7 @@ struct AddEvidenceView: View {
                         TextEditor(text: $quote)
                             .font(.system(size: 13)).frame(minHeight: 100)
                             .scrollContentBackground(.hidden).padding(10)
-                            .background(Color(NSColor.controlBackgroundColor)).cornerRadius(8)
+                            .background(Color.gardenSurface).cornerRadius(8)
                     }
 
                     HStack {
@@ -666,7 +666,7 @@ struct AddEvidenceView: View {
                         TextEditor(text: $memo)
                             .font(.system(size: 13)).frame(minHeight: 80)
                             .scrollContentBackground(.hidden).padding(10)
-                            .background(Color(NSColor.controlBackgroundColor)).cornerRadius(8)
+                            .background(Color.gardenSurface).cornerRadius(8)
                     }
                 }
                 .padding(20)
@@ -710,7 +710,7 @@ struct EditableTextArea: View {
                 .scrollContentBackground(.hidden)
                 .padding(.horizontal, 8).padding(.vertical, 6)
         }
-        .background(Color(NSColor.controlBackgroundColor))
+        .background(Color.gardenSurface)
         .cornerRadius(10)
         .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.secondary.opacity(0.15)))
     }
